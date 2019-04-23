@@ -1,16 +1,19 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace My.CorrelationIdProvider
 {
     public class CorrelationIdProvider : ICorrelationIdProvider
     {
+        private IConfiguration Configuration { get; }
         private IHttpContextAccessor HttpContextAccessor { get; }
         private IHeaderDictionary Headers => HttpContextAccessor.HttpContext.Request.Headers;
-        public string CorrelationIdKey => "CorrelationId";
+        public string CorrelationIdKey => Configuration["CorrelationId"];
 
-        public CorrelationIdProvider(IHttpContextAccessor httpContextAccessor)
+        public CorrelationIdProvider(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
+            Configuration = configuration;
             HttpContextAccessor = httpContextAccessor;
         }
 
