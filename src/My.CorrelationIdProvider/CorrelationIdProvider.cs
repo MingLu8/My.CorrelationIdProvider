@@ -9,7 +9,7 @@ namespace My.CorrelationIdProvider
         private IConfiguration Configuration { get; }
         private IHttpContextAccessor HttpContextAccessor { get; }
         private IHeaderDictionary Headers => HttpContextAccessor.HttpContext.Request.Headers;
-        public string CorrelationIdKey => Configuration["CorrelationId"];
+        public string CorrelationIdKey => Configuration["CorrelationId"] ?? "X-Correlation-Id";
 
         public CorrelationIdProvider(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
