@@ -17,7 +17,7 @@ namespace My.CorrelationIdProvider
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public void AddCorrelationId()
+        public virtual void AddCorrelationId()
         {
             if (Headers.TryGetValue(CorrelationIdKey, out var correlationId) &&
                 (string) correlationId != null) return;
@@ -25,7 +25,7 @@ namespace My.CorrelationIdProvider
             Headers[CorrelationIdKey] = Guid.NewGuid().ToString("D");
         }
 
-        public string GetCorrelationId()
+        public virtual string GetCorrelationId()
         {
             return Headers[CorrelationIdKey];
         }
